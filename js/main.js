@@ -67,13 +67,3 @@ function clock() {
 
 setInterval(clock, 1000);
 date();
-
-function reqListener () {
-  console.log(this.responseText);
-}
-
-var oReq = new XMLHttpRequest();
-oReq.addEventListener("load", reqListener);
-
-oReq.open("GET", "https://api.darksky.net/forecast/5e746e713c26d1031a4f05f947afec40/41.881,-87.623", true);
-oReq.send();
