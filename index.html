@@ -15,41 +15,25 @@
     <!--Font-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-hack/2.020/css/hack.min.css">
     <!--Styles-->
-    <link rel="stylesheet" type="text/css" href="css/bulma.css">
+    <link rel="stylesheet" type="text/css" href="css/flexboxgrid.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body>
-    <section class="section">
-        <div class="container">
-            <div class="tile is-ancestor">
-                <div class="tile is-vertical is-8">
-                    <div class="tile">
-                        <div class="tile is-parent is-vertical">
-                            <article class="tile is-child">
-                                <h1 class="date"></h1>
-                            </article>
-                            <article class="tile is-child">
-                                <h1 class="time"></h1>
-                            </article>
-                        </div>
-                        <div class="tile is-parent">
-                            <article class="tile is-child">
-                                <h1 class="weather">You need a jacket today.</h1>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="tile is-parent">
-                        <article class="tile is-child">
-                            <h1 class=""></h1>
-                        </article>
-                    </div>
-                </div>
-                <div class="tile is-parent">
-                    <article class="tile is-child">
-                        <h1 class=""></h1>
-                    </article>
-                </div>
+    <section class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <h1 class="time"></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <h1 class="date"></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <h1 class="weather">You need a jacket today.</h1>
             </div>
         </div>
     </section>
