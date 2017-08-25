@@ -3,7 +3,8 @@ function night_mode() {
     let content = document.querySelectorAll('.content');
     let box = document.querySelectorAll('.box');
     let side_bar = document.getElementById('sidebar-wrapper');
-    let night_mode = document.getElementById('night_mode')
+    let night_mode = document.getElementById('night_mode');
+    let picture = document.querySelector('.img_content');
 
     if (night_mode.getAttribute('class')) {
         disable();
@@ -13,9 +14,11 @@ function night_mode() {
 
     function enable() {
         night_mode.setAttribute('class', 'active');
+        night_mode.innerHTML = 'Light Mode';
         body.style.background = '#000';
         body.style.color = '#bfbfbf';
         side_bar.style.background = '#161616';
+        picture.style.filter = 'grayscale(80%)';
         Array.prototype.forEach.call(box, (e) => {
             e.style.backgroundColor = '#1f2846';
         });
@@ -27,9 +30,11 @@ function night_mode() {
 
     function disable() {
         night_mode.removeAttribute('class', 'active');
+        night_mode.innerHTML = 'Night Mode';
         body.style.background = '';
         body.style.color = '';
         side_bar.style.background = '';
+        picture.style.filter = '';
         Array.prototype.forEach.call(box, (e) => {
             e.style.backgroundColor = '';
         });

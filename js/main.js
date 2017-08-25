@@ -70,7 +70,7 @@ setInterval(clock, 1000);
 date();
 current_weather();
 day_forcast();
-
+picture();
 
 function current_weather() {
     function responseListener() {
@@ -96,4 +96,20 @@ function day_forcast() {
     weatherReq.addEventListener("load", responseListener);
     weatherReq.open("GET", "http://localhost:8080/api/weather/day");
     weatherReq.send();
+}
+
+function picture() {
+    function responseListener() {
+        let data = JSON.parse(this.responseText);
+        let caption = `Courtesy of unsplash.com\nPhoto by: ${data.name}`; 
+        document.getElementById('random_pic').src = data.url;
+        document.querySelector('.caption').style.height = document.querySelector('.img_box').style.height;
+
+        document.getElementById('caption').innerHTML = caption;
+    }
+
+    var photoReq = new XMLHttpRequest();
+    photoReq.addEventListener("load", responseListener);
+    photoReq.open("GET", "http://localhost:8080/api/unsplash/random");
+    photoReq.send();
 }
