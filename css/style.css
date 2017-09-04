@@ -1,9 +1,13 @@
+/*------------------General Styles------------------*/
+
 body {
     max-width: 100vw;
     min-height: 100vh;
     background-color: #f8f8ff;
     margin-top: 0;
 }
+
+/*------------------Content Styles------------------*/
 
 .box {
     background-color: #B2C4FF;
@@ -19,7 +23,7 @@ body {
 }
 
 .content:hover {
-    outline: #f8f8ff solid 2px;
+    outline: #f8f8ff solid 3px;
 }
 
 .img_box {
@@ -34,8 +38,10 @@ body {
 }
 
 .img_content:hover {
-    outline: #f8f8ff solid 2px;
+    outline: #f8f8ff solid 3px;
 }
+
+/*------------------Header Styles------------------*/
 
 #sage {
     padding: 6% 0;
