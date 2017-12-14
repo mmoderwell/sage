@@ -3,5 +3,10 @@ module.exports = {
         let body = req.body;
         console.log(body);
         res.send(body);
+    },
+    signup(req, res, next) {
+        let body = req.body;
+        console.log(body);
+        res.send(body);
     }
 }

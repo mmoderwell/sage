@@ -3,6 +3,7 @@
     padding: 4em;
     border-radius: 4px;
     margin-top: 25%;
+    background: #deeaf0;
 }
 fieldset {
     margin: 0 0 3rem;
@@ -45,7 +46,7 @@ fieldset {
     left: 50%;
     bottom: -0.1rem;
     position: absolute;
-    background: #a5c3ff;
+    background: #566b95;
     -webkit-transition: left 0.28s ease, width 0.28s ease;
     transition: left 0.28s ease, width 0.28s ease;
     z-index: 2;
@@ -86,7 +87,7 @@ input:-webkit-autofill {
     outline: none;
 }
 .form-group input:focus~.control-label, .form-group textarea:focus~.control-label {
-    color: #a5c3ff;
+    color: #566b95;
 }
 .form-group input:focus~.bar::before, .form-group textarea:focus~.bar::before {
     width: 100%;
@@ -116,9 +117,9 @@ button {
     text-align: center;
     width: 130px;
     border-radius: 40px;
-    background: #f8f8ff;
-    border: 2px solid #a5c3ff;
-    color: #a5c3ff;
+    background: #deeaf0;
+    border: 2px solid #566b95;
+    color: #566b95;
     letter-spacing: 1px;
     font-size: 12px;
     font-weight: bold;
@@ -127,20 +128,23 @@ button {
     transition: all 0.25s ease;
 }
 button:hover {
-    border-color: #a5c3ff;
+    border-color: #566b95;
     color: white;
-    background: #a5c3ff;
+    background: #566b95;
 }
 button:active {
     letter-spacing: 2px;
 }
 button:focus {
-    background: #f8f8ff;
-    border: 2px solid #a5c3ff;
-    color: #a5c3ff;
+    background: #deeaf0;
+    border: 2px solid #566b95;
+    color: #566b95;
 }
-button:after {
+#login:after {
     content: "LOGIN";
+}
+#signup:after {
+    content: "SIGNUP";
 }
 .onclick {
     padding: 0;
@@ -148,7 +152,7 @@ button:after {
     border-color: #bbb;
     border-width: 3px;
     font-size: 0;
-    border-left-color: #a5c3ff;
+    border-left-color: #566b95;
     -webkit-animation: rotating 2s 0.25s linear infinite;
     animation: rotating 2s 0.25s linear infinite;
 }
@@ -157,13 +161,13 @@ button:after {
 }
 .onclick:focus {
     border: 2px solid #bbb;
-    color: #a5c3ff;
-    border-left-color: #a5c3ff;
+    color: #566b95;
+    border-left-color: #566b95;
 }
 .validate {
     font-size: 13px;
     color: white;
-    background: #a5c3ff;
+    background: #566b95;
 }
 .validate:after {
     font-family: 'FontAwesome';

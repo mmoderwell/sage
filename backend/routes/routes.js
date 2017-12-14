@@ -7,4 +7,5 @@ module.exports = (app) => {
 	app.get('/api/weather/day', weather.day);
 	app.get('/api/unsplash/random', unsplash.random);
 	app.post('/login', users.login);
+	app.post('/signup', users.signup);
 }
