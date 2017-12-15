@@ -30,7 +30,7 @@ module.exports = {
             });
             res.on('end', () => {
                 data = JSON.parse(data.join(''));
-                console.log('No more data in response.');
+                //console.log('No more data in response.');
                 myEmitter.emit('done');
             });
         });
