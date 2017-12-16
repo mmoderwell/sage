@@ -4,10 +4,23 @@ let login_button = document.getElementById('login');
 let signup_button;
 let name;
 let email;
+let registering = false;
 let username = document.forms["login_form"]["username"];
 let password = document.forms["login_form"]["password"];
 let error = document.getElementById('error');
 login_button.addEventListener('click', validate);
+
+document.addEventListener("keydown", function(e) {
+    if (e.which == 13 || e.keyCode == 13) {
+        if (registering) {
+            s_validate();
+        } else {
+            validate();
+        }
+        return false;
+    }
+    return true;
+});
 
 function validate() {
     if (username.checkValidity() && password.checkValidity()) {
@@ -40,6 +53,8 @@ function failed() {
     login_button.classList.remove("onclick");
     if (!username.value || !password.value) {
         error.innerHTML = 'Please fill out all the fields.';
+    } else {
+        error.innerHTML = 'Username and password combination is incorrect.';
     }
 }
 
@@ -59,8 +74,12 @@ function send() {
 }
 
 function res_listen() {
-    console.log(this.responseText);
-    success();
+    if (this.responseURL === 'http://localhost:8080/') {
+        success();
+        window.location.replace(this.responseURL);
+    } else {
+        failed();
+    }
 }
 
 ///////////////////////////////////SIGNUP////////////////////////////////////////////////
@@ -86,6 +105,7 @@ function new_account() {
     form.insertBefore(name_snippet, form.firstChild);
     signup_button = document.getElementById('signup');
     signup_button.addEventListener('click', s_validate);
+    registering = true;
 }
 
 function s_send() {
@@ -129,7 +149,7 @@ function s_success() {
 function s_failed() {
     error.style.opacity = '1';
     signup_button.classList.remove("onclick");
-    if (!username.value || !password.value) {
+    if (!username.value || !password.value || !name.value || !email.value) {
         error.innerHTML = 'Please fill out all the fields.';
     }
     if (!validateEmail() && name.value && username.value && password.value) {
@@ -154,7 +174,7 @@ function s_send() {
 
     var http = new XMLHttpRequest();
     http.overrideMimeType('application/json');
-    //http.addEventListener("load", s_res_listen);
+    http.addEventListener("load", s_res_listen);
     http.open('POST', `http://localhost:8080/signup`, true);
     http.setRequestHeader('Content-Type', 'application/json');
     http.send(JSON.stringify(body));
@@ -162,12 +182,11 @@ function s_send() {
 }
 
 function s_res_listen() {
-    let response = this.responseText;
-    console.log(response);
-    if (response.in_use == true) {
-        s_in_use();
-    } else {
+    if (this.responseURL === 'http://localhost:8080/') {
         s_success();
+        window.location.replace(this.responseURL);
+    } else {
+        s_in_use();
     }
 }
 

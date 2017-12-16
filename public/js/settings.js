@@ -5,7 +5,7 @@
     let side_bar = document.getElementById('sidebar-wrapper');
     let night_mode = document.getElementById('night_mode');
     let night_mode_status = localStorage.getItem("night_mode");
-    let picture = document.querySelector('.img_content');
+    //let picture = document.querySelector('.img_content');
 
     function night() {
 
@@ -22,7 +22,7 @@
             body.style.background = '#000';
             body.style.color = '#bfbfbf';
             side_bar.style.background = '#161616';
-            picture.style.filter = 'grayscale(80%)';
+            //picture.style.filter = 'grayscale(80%)';
             Array.prototype.forEach.call(box, (e) => {
                 e.style.backgroundColor = '#1f2846';
             });
@@ -40,7 +40,7 @@
             body.style.background = '';
             body.style.color = '';
             side_bar.style.background = '';
-            picture.style.filter = '';
+            //picture.style.filter = '';
             Array.prototype.forEach.call(box, (e) => {
                 e.style.backgroundColor = '';
             });

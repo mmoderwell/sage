@@ -70,7 +70,7 @@ setInterval(clock, 1000);
 date();
 current_weather();
 day_forcast();
-picture();
+//picture();
 
 function current_weather() {
     function responseListener() {
@@ -101,7 +101,7 @@ function day_forcast() {
 function picture() {
     function responseListener() {
         let data = JSON.parse(this.responseText);
-        let caption = `Courtesy of unsplash.com\nPhoto by: ${data.name}`; 
+        let caption = `Courtesy of unsplash.com\nPhoto by: ${data.name}`;
         document.getElementById('random_pic').src = data.url;
         document.querySelector('.caption').style.height = document.querySelector('.img_box').style.height;
 
