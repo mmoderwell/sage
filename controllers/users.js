@@ -4,12 +4,6 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 module.exports = {
-    login(req, res, next) {
-        let body = req.body;
-        console.log(body);
-        //res.redirect('./index.html');
-
-    },
     signup(req, res, next) {
         const body = req.body;
         const { name, email, username, password } = body;
@@ -17,6 +11,7 @@ module.exports = {
         User.findOne({ username: username })
             .then((users) => {
                 if (users) {
+                    res.setHeader('Content-Type', 'application/json');
                     res.send({ in_use: true });
                 } else {
                     bcrypt.hash(password, saltRounds, function(err, hash) {
@@ -29,56 +24,27 @@ module.exports = {
                                         const id = user._id.toString();
                                         console.log(id);
                                         req.login(id, (err) => {
-                                            console.log('REDIRECT');
+                                            res.setHeader('Content-Type', 'text/html');
                                             res.redirect('/');
                                         });
                                     });
-                                //res.header("Access-Control-Allow-Origin", "*");
-                                //res.send(user)
                             });
-                        console.log('New user:' + user);
+                        console.log('New user: ' + user);
                     });
                 }
             });
-        passport.serializeUser(function(id, done) {
-            done(null, id);
-        });
-
-        passport.deserializeUser(function(id, done) {
-            User.findById(id, function(err, user) {
-                done(null, user);
-            });
-        });
     }
 }
 
-//     comment(req, res) {
-//         const { post } = req.params;
-//         const body = req.body;
-//         const { name, content } = body;
-//         JSON.stringify(name);
-//         JSON.stringify(content);
+passport.serializeUser(function(id, done) {
+    //console.log(id + ' serialized');
+    done(null, id);
+});
 
-//         const comment = new Blog({ name: name, post: post, content: content });
-//         comment.save()
-//             .then(() => {
-//                 res.header("Access-Control-Allow-Origin", "*");
-//                 res.send(comment)
-//             });
-//         console.log(comment);
-//     },
-
-//     show(req, res) {
-//         const { post } = req.params;
-
-//         Blog.find({ post: post })
-//             .then((comments) => {
-//                 res.header("Access-Control-Allow-Origin", "*");
-//                 res.send(comments)
-//             });
-
-//     },
-//     hello(req, res) {
-//         res.send('Hello there!');
-//     }
-// }
+passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, id) {
+        if (err) return done(null, err);
+        //console.log(id + ' deserialized');
+        done(null, id);
+    });
+});
