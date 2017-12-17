@@ -33,6 +33,13 @@ module.exports = {
                     });
                 }
             });
+    },
+    profile(req, res, next) {
+        if (req.isAuthenticated()) {
+            res.render('../views/profile.ejs', { user: req.user });
+        } else {
+            res.redirect('/login');
+        }
     }
 }
 
