@@ -58,8 +58,16 @@
                         <div class="column">
                             <div class="box">
                                 <div class="content">
-                                    <p id="day_forcast">Loading the day's forcast.</p>
-                                    <p id="current_weather">Loading the current weather.</p>
+                                    <% if(user.city){ %>
+                                        <p>Currently in
+                                            <%= user.city %>
+                                        </p>
+                                        </>
+                                        <% } else{ %>
+                                            <p>Currently in unknown location</p>
+                                            <% } %>
+                                                <p id="day_forcast">Loading the day's forcast.</p>
+                                                <p id="current_weather">Loading the current weather.</p>
                                 </div>
                             </div>
                         </div>

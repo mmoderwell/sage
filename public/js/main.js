@@ -75,7 +75,12 @@ day_forcast();
 function current_weather() {
     function responseListener() {
         let curr_weather = JSON.parse(this.responseText);
-        let output = `Current weather: ${(curr_weather.weather).toLowerCase()} and ${Math.round(curr_weather.temperature)} degrees.`;
+        let output;
+        if (curr_weather.error) {
+            output = 'Please enter your zip at the profile page.';
+        } else {
+            output = `Current weather: ${(curr_weather.weather).toLowerCase()} and ${Math.round(curr_weather.temperature)} degrees.`;
+        }
         document.getElementById('current_weather').innerHTML = output;
     }
 
@@ -88,7 +93,12 @@ function current_weather() {
 function day_forcast() {
     function responseListener() {
         let day_weather = JSON.parse(this.responseText);
-        let output = `Plan for ${(day_weather.summary).toLowerCase()}`;
+        let output;
+        if (day_weather.error) {
+            output = '';
+        } else {
+            output = `Plan for ${(day_weather.summary).toLowerCase()}`;
+        }
         document.getElementById('day_forcast').innerHTML = output;
     }
 
