@@ -1,6 +1,7 @@
 const weather = require('../controllers/weather');
 const unsplash = require('../controllers/unsplash');
 const users = require('../controllers/users');
+const info = require('../controllers/info');
 const passport = require('passport');
 
 module.exports = (app) => {
@@ -35,6 +36,7 @@ module.exports = (app) => {
 		}
 	});
 	app.get('/profile', users.profile);
+	app.post('/api/info/zip', info.zip);
 	app.get('/api/weather/current', weather.current);
 	app.get('/api/weather/day', weather.day);
 	app.get('/api/unsplash/random', unsplash.random);

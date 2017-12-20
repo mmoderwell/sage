@@ -10,8 +10,7 @@ signup_button.addEventListener('click', validate);
 
 document.addEventListener("keydown", function(e) {
     if (e.which == 13 || e.keyCode == 13) {
-        if ()
-            validate();
+        validate();
         return false;
     }
     return true;
@@ -76,7 +75,7 @@ function send() {
 
     var http = new XMLHttpRequest();
     http.overrideMimeType('application/json');
-    http.addEventListener("load", s_res_listen);
+    http.addEventListener("load", res_listen);
     http.open('POST', `http://localhost:8080/signup`, true);
     http.setRequestHeader('Content-Type', 'application/json');
     http.send(JSON.stringify(body));
