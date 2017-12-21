@@ -37,7 +37,7 @@ function app_save() {
 		var http = new XMLHttpRequest();
 		http.overrideMimeType('application/json');
 		http.addEventListener("load", res_listen);
-		http.open('POST', `http://localhost:8080/api/info/zip`, true);
+		http.open('POST', `/api/info/zip`, true);
 		http.setRequestHeader('Content-Type', 'application/json');
 		http.send(JSON.stringify(body));
 	}
