@@ -13,7 +13,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 
 mongoose.Promise = global.Promise;
 //mongoose.connect(`mongodb://matt:blueberry@localhost:27017/sage`)
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/sage?authSource=sage`)
+mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/sage?authSource=admin`)
 	.then(() => console.log('Connected to MongoDB.'));
 
 // set the view engine to ejs
@@ -34,7 +34,7 @@ app.use(session({
 		maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
 	},
 	store: new MongoDBStore({
-		uri: `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/sage?authSource=sage`,
+        uri: `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/sage?authSource=admin`,
 		collection: 'sessions'
 	}),
 	resave: false,
