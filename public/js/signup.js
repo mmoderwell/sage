@@ -76,7 +76,7 @@ function send() {
     var http = new XMLHttpRequest();
     http.overrideMimeType('application/json');
     http.addEventListener("load", res_listen);
-    http.open('POST', `http://localhost:8080/signup`, true);
+    http.open('POST', `/signup`, true);
     http.setRequestHeader('Content-Type', 'application/json');
     http.send(JSON.stringify(body));
 

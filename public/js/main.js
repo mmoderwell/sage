@@ -86,7 +86,7 @@ function current_weather() {
 
     var weatherReq = new XMLHttpRequest();
     weatherReq.addEventListener("load", responseListener);
-    weatherReq.open("GET", "http://localhost:8080/api/weather/current");
+    weatherReq.open("GET", "/api/weather/current");
     weatherReq.send();
 }
 
@@ -104,7 +104,7 @@ function day_forcast() {
 
     var weatherReq = new XMLHttpRequest();
     weatherReq.addEventListener("load", responseListener);
-    weatherReq.open("GET", "http://localhost:8080/api/weather/day");
+    weatherReq.open("GET", "/api/weather/day");
     weatherReq.send();
 }
 
@@ -120,6 +120,6 @@ function picture() {
 
     var photoReq = new XMLHttpRequest();
     photoReq.addEventListener("load", responseListener);
-    photoReq.open("GET", "http://localhost:8080/api/unsplash/random");
+    photoReq.open("GET", "/api/unsplash/random");
     photoReq.send();
 }
