@@ -10,7 +10,7 @@
 ul {
 	list-style: none;
 }
-.zip_edit {
+.zip_edit, .name_edit, .email_edit, .username_edit {
 	display: none;
 }
 

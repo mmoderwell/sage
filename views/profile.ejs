@@ -24,22 +24,34 @@
 			<div class="row">
 				<div class="column">
 					<h4>Account Information</h4>
-					<a href="" title="">Edit</a>
+					<p id="user_info" class="edit_button loading">Edit</p>
 					<ul>
 						<li>
 							<p>Name:
-								<%= user.name %>
+								<span id="name"><%= user.name %></span></p>
 							</p>
+							<div class="form-group name_edit">
+								<input id="new_name" name="name" type="text" required="required" min="0" max="100000" />
+								<label class="control-label" for="input">name</label><i class="bar"></i>
+							</div>
 						</li>
 						<li>
 							<p>Email:
-								<%= user.email %>
+								<span id="email"><%= user.email %></span></p>
 							</p>
+							<div class="form-group email_edit">
+								<input id="new_email" name="email" type="text" required="required" min="0" max="100000" />
+								<label class="control-label" for="input">email</label><i class="bar"></i>
+							</div>
 						</li>
 						<li>
 							<p>Username:
-								<%= user.username %>
+								<span id="username"><%= user.username %></span></p>
 							</p>
+							<div class="form-group username_edit">
+								<input id="new_username" name="username" type="text" required="required" min="0" max="100000" />
+								<label class="control-label" for="input">username</label><i class="bar"></i>
+							</div>
 						</li>
 						<li>
 							<p>Password:
