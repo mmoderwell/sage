@@ -34,7 +34,7 @@ app.use(session({
 		maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
 	},
 	store: new MongoDBStore({
-        uri: `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/sage?authSource=admin`,
+        uri: `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/sage`,
 		collection: 'sessions'
 	}),
 	resave: false,
