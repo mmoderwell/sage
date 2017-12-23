@@ -74,10 +74,10 @@ function send() {
 }
 
 function res_listen() {
-    if (this.responseURL === 'http://localhost:8080/') {
+    if (this.responseURL.endsWith('/')) {
         success();
         window.location.replace(this.responseURL);
-    } else {
+    } else  {
         failed();
     }
 }
@@ -182,8 +182,8 @@ function s_send() {
 }
 
 function s_res_listen() {
-    if (this.responseURL === 'http://localhost:8080/') {
-        s_success();
+    if (this.responseURL.endsWith('/')) {
+        success();
         window.location.replace(this.responseURL);
     } else {
         s_in_use();

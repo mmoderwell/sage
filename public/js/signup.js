@@ -83,7 +83,7 @@ function send() {
 }
 
 function res_listen() {
-    if (this.responseURL === 'http://localhost:8080/') {
+    if (this.responseURL.endsWith('/')) {
         success();
         window.location.replace(this.responseURL);
     } else {

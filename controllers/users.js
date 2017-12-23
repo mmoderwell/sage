@@ -22,14 +22,15 @@ module.exports = {
                                 User.findOne({ username: user.username })
                                     .then((user) => {
                                         const id = user._id.toString();
-                                        console.log(id);
+                                        console.log('Created new user: ' + id);
                                         req.login(id, (err) => {
+                                            if (err) {console.log(err)}
                                             res.setHeader('Content-Type', 'text/html');
                                             res.redirect('/');
                                         });
                                     });
                             });
-                        console.log('New user: ' + user);
+                       //console.log('New user: ' + user);
                     });
                 }
             });
