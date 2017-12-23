@@ -37,6 +37,7 @@ module.exports = (app) => {
 	});
 	app.get('/profile', users.profile);
 	app.post('/api/info/zip', info.zip);
+	app.post('/api/info/user', info.user);
 	app.get('/api/weather/current', weather.current);
 	app.get('/api/weather/day', weather.day);
 	app.get('/api/unsplash/random', unsplash.random);

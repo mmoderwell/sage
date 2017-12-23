@@ -11,10 +11,15 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const MongoDBStore = require('connect-mongodb-session')(session);
 
+let mongo_uri;
 mongoose.Promise = global.Promise;
-//mongoose.connect(`mongodb://matt:blueberry@localhost:27017/sage`)
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/sage`)
-	.then(() => console.log('Connected to MongoDB.'));
+if (process.env.NODE_ENV === 'DEVELOPMENT') {
+	mongo_uri = 'mongodb://localhost:27017/sage';
+} else {
+	mongo_uri = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/sage`;
+}
+
+mongoose.connect(mongo_uri).then(() => console.log('Connected to MongoDB.'));
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -34,7 +39,7 @@ app.use(session({
 		maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
 	},
 	store: new MongoDBStore({
-        uri: `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/sage`,
+		uri: mongo_uri,
 		collection: 'sessions'
 	}),
 	resave: false,
