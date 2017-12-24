@@ -65,7 +65,6 @@ module.exports = {
     user(req, res) {
 
         let { name, email, username } = req.body;
-
         User.findOne({ username: req.user.username }, (err, user) => {
             user.name = name;
             user.email = email;
