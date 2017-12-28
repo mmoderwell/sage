@@ -1,8 +1,10 @@
 function date() {
-    let time = new Date();
-    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let month = months[time.getMonth()];
+
     let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thurday', 'Friday', 'Saturday'];
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    let time = new Date();
+    let month = months[time.getMonth()];
     let day = days[time.getDay()];
     let date = time.getDate();
     let year = time.getFullYear();
@@ -75,6 +77,7 @@ day_forcast();
 function current_weather() {
     function responseListener() {
         let curr_weather = JSON.parse(this.responseText);
+        console.log(curr_weather);
         let output;
         if (curr_weather.error) {
             output = 'Please enter your zip at the profile page.';
