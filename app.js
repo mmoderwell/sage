@@ -4,30 +4,27 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const routes = require('./routes/routes');
-
 //Authentication Packages
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const MongoDBStore = require('connect-mongodb-session')(session);
 
-let mongo_uri;
 mongoose.Promise = global.Promise;
+
+let mongo_uri;
 if (process.env.NODE_ENV === 'DEVELOPMENT') {
 	mongo_uri = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/sage`;
 } else {
 	mongo_uri = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/sage`;
 }
-
-mongoose.connect(mongo_uri).then(() => console.log('Connected to mongodb.'))
-	.catch((e) => {
-		console.error('Connection to mongodb failed.');
-	});
+mongoose.connect(mongo_uri).then(() => console.log('Connected to mongodb.')).catch((e) => {
+	console.error('Connection to mongodb failed.');
+});
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
-
 app.use(bodyParser.json());
 app.use((req, res, next) => {
 	// Website you wish to allow to connect
@@ -49,7 +46,6 @@ app.use(session({
 	saveUninitialized: false,
 	cookie: { secure: false }
 }));
-
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -59,15 +55,14 @@ app.use((req, res, next) => {
 	next();
 });
 
+//passport local strategy, handles username and password
 passport.use(new LocalStrategy(
 	(username, password, done) => {
 		const User = require('./models/user');
 		const bcrypt = require('bcrypt');
-
 		User.findOne({ username: username }, function(err, user) {
 			if (err) return done(err);
 			if (!user) return done(null, false);
-
 			let hashed = user.password;
 			bcrypt.compare(password, hashed, (err, response) => {
 				if (response === true) {
@@ -77,8 +72,7 @@ passport.use(new LocalStrategy(
 				}
 			});
 		});
-	}
-));
+	}));
 
 routes(app);
 
@@ -88,13 +82,11 @@ app.use((req, res, next) => {
 	err.status = 404;
 	next(err);
 });
-
 // error handler
 app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	res.locals.message = err.message;
 	res.locals.error = req.app.get('env') === 'DEVELOPMENT' ? err : {};
-
 	// render the error page
 	res.status(err.status || 500);
 	res.render('error.ejs', { err });
