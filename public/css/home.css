@@ -4,11 +4,9 @@
 	padding-left: 0;
 	transition: all 0.5s ease;
 }
-
 #wrapper.toggled {
 	padding-left: 250px;
 }
-
 #sidebar-wrapper {
 	z-index: 1000;
 	position: fixed;
@@ -17,24 +15,20 @@
 	height: 100%;
 	margin-left: -250px;
 	overflow-y: auto;
-	background: #fff;
+	background: #f1f1f1;
 	transition: all 0.5s ease;
 }
-
 #wrapper.toggled #sidebar-wrapper {
 	width: 250px;
 }
-
 #page-wrapper {
 	width: 100%;
 	position: absolute;
 }
-
 #wrapper.toggled #page-wrapper {
 	position: absolute;
 	margin-right: -250px;
 }
-
 @media(min-width:768px) {
 	#wrapper {
 		padding-left: 0px;
