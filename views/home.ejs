@@ -45,7 +45,16 @@
                     <div class="row">
                         <div class="column">
                             <div class="box">
-                                <p class="content time"></p>
+                                <p class="content"><span id="greeting"></span>,
+                                    <%= user.name %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <div class="box">
+                                <p class="content time">Loading time...</p>
                             </div>
                         </div>
                         <div class="column">
@@ -60,14 +69,13 @@
                                 <div class="content">
                                     <% if(user.city){ %>
                                         <p>Currently in
-                                            <%= user.city %>
+                                            <%= user.city %>,
                                         </p>
                                         </>
                                         <% } else{ %>
                                             <p>Currently in unknown location</p>
                                             <% } %>
-                                                <p id="day_forcast">Loading the day's forcast.</p>
-                                                <p id="current_weather">Loading the current weather.</p>
+                                                <p id="current_weather">Loading today's weather.</p>
                                 </div>
                             </div>
                         </div>

@@ -25,63 +25,55 @@
 				<div class="column">
 					<h4>Account Information</h4>
 					<p id="user_info" class="edit_button loading">Edit</p>
-					<ul>
-						<li>
+					<div>
+						<div class="info_row">
 							<p>Name:
-								<span id="name"><%= user.name %></span></p>
+								<span id="name"><%= user.name %></span>
 							</p>
 							<div class="form-group name_edit">
-								<input id="new_name" name="name" type="text" required="required" min="0" max="100000" />
+								<input id="new_name" name="name" type="text" required="required" />
 								<label class="control-label" for="input">name</label><i class="bar"></i>
 							</div>
-						</li>
-						<li>
+						</div>
+						<div class="info_row">
 							<p>Email:
-								<span id="email"><%= user.email %></span></p>
+								<span id="email"><%= user.email %></span>
 							</p>
 							<div class="form-group email_edit">
-								<input id="new_email" name="email" type="text" required="required" min="0" max="100000" />
+								<input id="new_email" name="email" type="text" required="required" />
 								<label class="control-label" for="input">email</label><i class="bar"></i>
 							</div>
-						</li>
-						<li>
+						</div>
+						<div class="info_row">
 							<p>Username:
-								<span id="username"><%= user.username %></span></p>
+								<span id="username"><%= user.username %></span>
 							</p>
 							<div class="form-group username_edit">
-								<input id="new_username" name="username" type="text" required="required" min="0" max="100000" />
+								<input id="new_username" name="username" type="text" required="required" />
 								<label class="control-label" for="input">username</label><i class="bar"></i>
 							</div>
-						</li>
-						<li>
-							<p>Password:
-								<%= user.password %>
-							</p>
-						</li>
-					</ul>
+						</div>
+					</div>
 				</div>
 				<div class="column">
 					<h4>App Information</h4>
 					<p id="app_info" class="edit_button loading">Edit</p>
-					<ul>
-						<li>
+					<div>
+						<div>
 							<p>Zip Code: <span id="zip"><%= user.zip %></span></p>
 							<div class="form-group zip_edit">
-								<input id="new_zip" name="zip" type="number" required="required" min="0" max="100000" />
+								<input id="new_zip" name="zip" type="number" required="required" min="0" max="99999" />
 								<label class="control-label" for="input">zip code</label><i class="bar"></i>
 							</div>
-						</li>
-					</ul>
-					<h4>Generated Information</h4>
-					<ul>
-						<li>
+						</div>
+						<div>
 							<p>City: <span id="city"><%= user.city %></span></p>
-						</li>
-						<li>
+						</div>
+						<div>
 							<p>Coordinates: <span id="coordinates">(<%= user.lat %>,<%= user.long %>)</span></p>
-						</li>
+						</div>
 
-					</ul>
+					</div>
 				</div>
 			</div>
 			<!--End of Main Content-->
