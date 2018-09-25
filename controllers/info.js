@@ -9,19 +9,17 @@ module.exports = {
 
         const { zip } = req.body;
 
-        class DoneEmitter extends EventEmitter {}
+        class zipEmitter extends EventEmitter {}
+        const zipEmitter = new zipEmitter();
 
-        const myEmitter = new DoneEmitter();
-        myEmitter.on('done', () => {
-            let local_data = {
+        zipEmitter.on('done', () => {
+            const local_data = {
                 lat: data.lat,
                 long: data.lng,
                 city: data.city,
                 zip: data.zip_code
             };
-
-            //console.log(local_data);
-
+            //save the fetched location data to user's database entry
             User.findOne({ username: req.user.username }, (err, user) => {
                 user.zip = local_data.zip;
                 user.city = local_data.city;
@@ -34,7 +32,13 @@ module.exports = {
                         res.redirect('/profile');
                     });
             });
+        });
 
+        zipEmitter.on('error', (e) => {
+            const error = {
+                error: e.message
+            };
+            res.send(error);
         });
 
         let data = [];
@@ -47,21 +51,21 @@ module.exports = {
         const secure_req = https.request(options, (res) => {
             res.setEncoding('utf8');
             res.on('data', (d) => {
-                //process.stdout.write(d);
                 data.push(d);
             });
             res.on('end', () => {
                 data = JSON.parse(data.join(''));
-                //console.log('No more data in response.');
-                myEmitter.emit('done');
+                zipEmitter.emit('done');
             });
         });
 
         secure_req.on('error', (e) => {
             console.error(`problem with request: ${e.message}`);
+            zipEmitter.emit('error', e);
         });
         secure_req.end();
     },
+    //post route to edit a users information in the database
     user(req, res) {
 
         let { name, email, username } = req.body;
@@ -78,7 +82,4 @@ module.exports = {
         });
 
     },
-    hello(req, res) {
-        res.send({ hello: 'there' });
-    }
 };

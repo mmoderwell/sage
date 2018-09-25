@@ -24,13 +24,13 @@ module.exports = {
                                         const id = user._id.toString();
                                         console.log('Created new user: ' + id);
                                         req.login(id, (err) => {
-                                            if (err) {console.log(err)}
+                                            if (err) { console.log(err) }
                                             res.setHeader('Content-Type', 'text/html');
                                             res.redirect('/');
                                         });
                                     });
                             });
-                       //console.log('New user: ' + user);
+                        //console.log('New user: ' + user);
                     });
                 }
             });
