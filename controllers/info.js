@@ -9,8 +9,8 @@ module.exports = {
 
         const { zip } = req.body;
 
-        class zipEmitter extends EventEmitter {}
-        const zipEmitter = new zipEmitter();
+        class DoneEmitter extends EventEmitter {}
+        const zipEmitter = new DoneEmitter();
 
         zipEmitter.on('done', () => {
             const local_data = {
