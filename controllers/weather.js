@@ -13,7 +13,8 @@ module.exports = {
             dsEmitter.on('done', () => {
                 const weather = {
                     curr_temperature: data.currently.temperature,
-                    curr_weather: data.currently.summary,
+                    curr_summary: data.currently.summary,
+                    curr_short: data.currently.icon,
                     summary: data.hourly.summary,
                     short: data.hourly.icon
                 };
@@ -29,7 +30,7 @@ module.exports = {
 
             const options = {
                 hostname: 'api.darksky.net',
-                path: `/forecast/5e746e713c26d1031a4f05f947afec40/${req.user.lat},${req.user.long}?exclude=[minutely,hourly,daily,alerts,flags]`,
+                path: `/forecast/5e746e713c26d1031a4f05f947afec40/${req.user.lat},${req.user.long}?exclude=[minutely,daily,alerts,flags]`,
                 method: 'GET'
             };
             //https request to the Dark Sky API to get weather information

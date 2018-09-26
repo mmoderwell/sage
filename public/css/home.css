@@ -74,6 +74,32 @@
 	text-indent: 20px;
 	line-height: 40px;
 }
+.sidebar-nav ul {
+	list-style-type: none;
+}
+.sidebar-nav ul li:before {
+	content: '\2014';
+	position: absolute;
+	margin-left: -40px;
+}
 .sidebar-nav li a {
 	cursor: pointer;
+}
+
+/*------------------Weather Styles------------------*/
+
+#weather_icon {
+	max-width: 160px;
+	filter: brightness(95%);
+}
+#weather {
+	text-align: left;
+}
+
+/*------------------Time Styles------------------*/
+
+.time {
+	font-size: 2em;
+	padding: 1.5em 0;
+	margin: 24px 0;
 }

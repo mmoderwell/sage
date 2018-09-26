@@ -11,13 +11,15 @@
 
         <!--Slide in Sidebar-->
         <div id="sidebar-wrapper">
-            <nav class="sidebar-nav">
+            <nav class="sidebar-nav"> 
                 <li>
                     <h5>Settings</h5>
                 </li>
+                <ul>
                 <li><a href="/profile" id="">Profile</a></li>
                 <li><a href="/logout" id="">Logout</a></li>
                 <li><a id="night_mode">Night Mode</a></li>
+                </ul>
             </nav>
         </div>
         <!--End of Sidebar-->
@@ -46,7 +48,7 @@
                         <div class="column">
                             <div class="box">
                                 <p class="content"><span id="greeting"></span>,
-                                    <%= user.name %>
+                                    <%= user.fname %>
                                 </p>
                             </div>
                         </div>
@@ -54,7 +56,7 @@
                     <div class="row">
                         <div class="column">
                             <div class="box">
-                                <p class="content time">Loading time...</p>
+                                <p class="content time loading">Loading time<span>.</span><span>.</span><span>.</span></p>
                             </div>
                         </div>
                         <div class="column">
@@ -75,7 +77,18 @@
                                         <% } else{ %>
                                             <p>Currently in unknown location</p>
                                             <% } %>
-                                                <p id="current_weather">Loading today's weather.</p>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="column">
+                                                        <div>
+                                                            <img src="" alt="" id="weather_icon">
+                                                        </div>
+                                                    </div>
+                                                    <div class="column loading">
+                                                        <p id="weather">Loading today's weather<span>.</span><span>.</span><span>.</span></p>
+                                                    </div>
+                                                </div>
+
                                 </div>
                             </div>
                         </div>
@@ -95,6 +108,9 @@
                     <!--End of Main Content-->
 
             </section>
+            <br>
+            <br>
+            <br>
         </div>
     </div>
     <script src="/js/settings.js" type="text/javascript"></script>
