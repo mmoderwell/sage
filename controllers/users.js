@@ -16,7 +16,7 @@ module.exports = {
                 } else {
                     bcrypt.hash(password, saltRounds, function(err, hash) {
                         // Store hash in your password DB.
-                        const user = new User({ name: name, email: email, username: username, password: hash });
+                        const user = new User({ name: name, fname: name.split(" ")[0], email: email, username: username, password: hash });
                         user.save()
                             .then(() => {
                                 User.findOne({ username: user.username })
