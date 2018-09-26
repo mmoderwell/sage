@@ -36,7 +36,7 @@ module.exports = (app) => {
 		}
 	});
 	app.get('/profile', users.profile);
-	app.post('/api/info/zip', info.zip);
+	app.post('/api/info/zip', info.zip); //for setting zip from profile page
 	app.post('/api/info/user', info.user);
 	app.get('/api/weather/full', weather.full);
 	app.get('/api/weather/current', weather.current);

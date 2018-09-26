@@ -43,11 +43,11 @@ function app_save() {
 		http.setRequestHeader('Content-Type', 'application/json');
 		http.send(JSON.stringify(body));
 	}
-}
 
-function app_res_listen() {
-	//console.log(this.responseURL);
-	window.location.replace(this.responseURL);
+	function app_res_listen() {
+		//console.log(this.responseText);
+		window.location.replace(this.responseURL);
+	}
 }
 
 ///////////// user info edit /////////////////
