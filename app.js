@@ -24,6 +24,7 @@ mongoose.connect(mongo_uri).then(() => console.log('Connected to mongodb.')).cat
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use((req, res, next) => {
