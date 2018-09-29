@@ -6,7 +6,6 @@ module.exports = {
 
     //takes zip from req body and sends to zipcodeapi to get addition information to save to database
     zip(req, res) {
-
         const { zip } = req.body;
 
         class DoneEmitter extends EventEmitter {}
@@ -73,7 +72,7 @@ module.exports = {
             user.name = name;
             user.email = email;
             user.username = username;
-
+            //need to add error handling here
             user.save()
                 .then(() => {
                     res.setHeader('Content-Type', 'text/html');
