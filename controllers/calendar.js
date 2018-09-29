@@ -8,7 +8,7 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 const TOKEN_PATH = 'token.json';
 
 // Load client secrets from a local file.
-fs.readFile('credentials.json', (err, content) => {
+fs.readFile('../credentials/credentials.json', (err, content) => {
 	if (err) return console.log('Error loading client secret file:', err);
 	// Authorize a client with credentials, then call the Google Calendar API.
 	authorize(JSON.parse(content), listAllEvents);
@@ -70,87 +70,89 @@ function getAccessToken(oAuth2Client, callback) {
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 
-module.exports = {
-
-	listAllEvents(req, res, auth) {
-		class Calendar {
-			constructor(name, id) {
-				this.name = name;
-				this.id = id;
-			}
+function listAllEvents(auth) {
+	class Calendar {
+		constructor(name, id) {
+			this.name = name;
+			this.id = id;
 		}
-		class Event {
-			constructor(name, calendar, time) {
-				this.name = name;
-				this.calendar = calendar;
-				this.time = Date.parse(time);
-			}
+	}
+	class Event {
+		constructor(name, calendar, time) {
+			this.name = name;
+			this.calendar = calendar;
+			this.time = Date.parse(time);
 		}
-		class DoneEmitter extends EventEmitter {}
-		const doneEmitter = new DoneEmitter();
+	}
+	class DoneEmitter extends EventEmitter {}
+	const doneEmitter = new DoneEmitter();
 
-		let calendars = [];
-		let event_list = [];
-		const calendar = google.calendar({ version: 'v3', auth });
+	let calendars = [];
+	let event_list = [];
+	const calendar = google.calendar({ version: 'v3', auth });
 
-		calendar.calendarList.list({
-			minAccessRole: 'owner',
-		}, (err, res) => {
-			if (err) return console.log('The API returned an error: ' + err);
-			const cals = res.data.items;
-			if (cals) {
-				cals.forEach((calendar) => {
-					calendars.push(new Calendar(calendar.summary, calendar.id));
-				});
-				doneEmitter.emit('done');
-			} else {
-				throw new Error('No calendars found.');
-			}
-		});
-		let getEvents = (calendar_id, calendar_name) => {
-			return new Promise((resolve, reject) => {
-				calendar.events.list({
-					calendarId: calendar_id,
-					timeMin: (new Date()).toISOString(),
-					maxResults: 5,
-					singleEvents: true,
-					orderBy: 'startTime',
-				}, (err, res) => {
-					if (err) {
-						reject('The API returned an error: ' + err);
-					}
-					const events = res.data.items;
-					if (events.length) {
-						//console.log('Upcoming 5 events:');
-						events.map((event, i) => {
+	calendar.calendarList.list({
+		minAccessRole: 'owner',
+	}, (err, res) => {
+		if (err) return console.log('The API returned an error: ' + err);
+		const cals = res.data.items;
+		if (cals) {
+			cals.forEach((calendar) => {
+				calendars.push(new Calendar(calendar.summary, calendar.id));
+			});
+			doneEmitter.emit('done');
+		} else {
+			throw new Error('No calendars found.');
+		}
+	});
+	let getEvents = (calendar_id, calendar_name) => {
+		return new Promise((resolve, reject) => {
+			calendar.events.list({
+				calendarId: calendar_id,
+				timeMin: (new Date()).toISOString(),
+				maxResults: 10,
+				singleEvents: true,
+				orderBy: 'startTime',
+			}, (err, res) => {
+				if (err) {
+					reject('The API returned an error: ' + err);
+				}
+				const events = res.data.items;
+				if (events.length) {
+					//console.log('Upcoming 5 events:');
+					//console.log(events);
+					events.map((event, i) => {
+						if (event) {
 							const start = event.start.dateTime || event.start.date;
 							//console.log(`${start} - ${event.summary}`);
 							event_list.push(new Event(event.summary, calendar_name, start));
-						});
-						resolve(event_list);
-					} else {
-						resolve('No upcoming events found.');
-						//console.log('No upcoming events found.');
-					}
-				});
+						}
+					});
+					resolve(event_list);
+				} else {
+					resolve('No upcoming events found.');
+					//console.log('No upcoming events found.');
+				}
 			});
-		}
-		//when list of all calendars is available
-		doneEmitter.on('done', () => {
-			//call getEvents on all calendars
-			const start = async() => {
-				await Promise.all(calendars.map(async(c) => {
-					await getEvents(c.id, c.name);
-				}));
-			}
-			start().then(() => {
-				//sort the events by start time
-				event_list.sort((a, b) => {
-					return a.time - b.time
-				});
-				console.log(event_list);
-			}).catch((e) => console.log('Error getting events', e));
-
 		});
 	}
+	//when list of all calendars is available
+	doneEmitter.on('done', () => {
+		//call getEvents on all calendars
+		const start = async() => {
+			await Promise.all(calendars.map(async(c) => {
+				await getEvents(c.id, c.name);
+			}));
+		}
+		start().then(() => {
+			//sort the events by start time
+			event_list.sort((a, b) => {
+				return a.time - b.time
+			});
+			console.log(event_list);
+		}).catch((e) => console.log('Error getting events', e));
+
+	});
 }
+
+module.exports = {}
