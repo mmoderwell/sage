@@ -15,6 +15,7 @@ const styles = {
 
 const Pop = (props) => (
     <div style={{...styles.pop, ...{width: `${props.maxwidth}%`}}}>
+    {props.children}
 	</div>
 )
 
