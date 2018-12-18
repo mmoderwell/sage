@@ -3,7 +3,7 @@ const styles = {
 	fontFamily: 'Hack',
 	letterSpacing: '.01em',
 	margin: '0 auto',
-	maxWidth: '112.0rem',
+	maxWidth: '70.0rem',
 	padding: '0 2.0rem',
 	position: 'relative',
 }

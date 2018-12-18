@@ -4,6 +4,7 @@ import Column from '../components/framework/Column'
 const styles = {
 	sage: {
 		padding: '6% 0',
+		fontSize: '2rem',
 	    fontFamily: 'Leckerli One',
 	    letterSpacing: '.1em',
 	},
@@ -24,7 +25,16 @@ const Header = () => (
 		        <a href="https://github.com/mmoderwell/sage" title="github.com/mmoderwell/sage">github.com/mmoderwell/sage</a>
 	        </div>
 	    </Column>
+	    <style jsx>{`
+			a {
+			    color: #797979;
+			}
+			a:focus, a:hover {
+			    color: #606c76;
+			}
+		`}</style>
 	</Row>
+	
 )
 
 export default Header

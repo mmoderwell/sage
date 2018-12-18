@@ -5,9 +5,9 @@ const styles = {
 	pop: {
 	    boxShadow: '9px 7px 40px -6px rgba(0, 0, 0, 0.25)',
 	    padding: '4em',
-	    borderRadius: '4px',
-	    marginTop: '25%',
-	    background: '#cee7ff',
+	    borderRadius: '8px',
+	    marginTop: '10%',
+	    background: '#f7fbff',
 	    marginRight: 'auto',
 		marginLeft: 'auto',
 	}
