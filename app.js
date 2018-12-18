@@ -1,5 +1,14 @@
+const path = require('path');
 const express = require('express');
-const app = express();
+const next = require('next');
+const server = express();
+const app = next({
+	dev: process.env.NODE_ENV !== 'PRODUCTION',
+  	dir: './client/', // Set directory to search for pages
+});
+const handle = app.getRequestHandler();
+
+
 require('dotenv').config();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -10,6 +19,21 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const MongoDBStore = require('connect-mongodb-session')(session);
 
+app.prepare().then(() => {
+	//server.use(express.static(__dirname + '/client/static'));
+	server.use('/static', express.static(path.join(__dirname, '../client/static')));
+	server.get('*', (req, res) => {
+	    return handle(req, res)
+	})
+}).catch((e) => {
+	  console.error(e)
+})
+
+server.get('/login', (req, res) => {
+	//res.render('../views/login.ejs');
+	app.render(req, res, '/login')
+});
+
 mongoose.Promise = global.Promise;
 
 let mongo_uri;
@@ -18,23 +42,27 @@ if (process.env.NODE_ENV === 'DEVELOPMENT') {
 } else {
 	mongo_uri = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/sage`;
 }
-mongoose.connect(mongo_uri).then(() => console.log('Connected to mongodb.')).catch((e) => {
+mongoose.connect(mongo_uri, { useNewUrlParser: true }).then(() => console.log('Connected to mongodb.')).catch((e) => {
 	console.error('Connection to mongodb failed.');
 });
 
-// set the view engine to ejs
-app.set('view engine', 'ejs');
+//the database connection is disconnected
+mongoose.connection.on('disconnected', function () {
+	console.log('Connection to mongodb is disconnected.');
+});
 
-app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.json());
-app.use((req, res, next) => {
+// set the view engine to ejs
+//app.set('view engine', 'ejs');
+
+server.use(bodyParser.json());
+server.use((req, res, next) => {
 	// Website you wish to allow to connect
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	// Pass to next layer of middleware
 	next();
 });
 
-app.use(session({
+server.use(session({
 	secret: 'blueberry pancakes',
 	cookie: {
 		maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
@@ -47,11 +75,11 @@ app.use(session({
 	saveUninitialized: false,
 	cookie: { secure: false }
 }));
-app.use(passport.initialize());
-app.use(passport.session());
+server.use(passport.initialize());
+server.use(passport.session());
 
 //not 100% what this does at the moment
-app.use((req, res, next) => {
+server.use((req, res, next) => {
 	res.locals.isAuthenticated = req.isAuthenticated();
 	next();
 });
@@ -75,16 +103,16 @@ passport.use(new LocalStrategy(
 		});
 	}));
 
-routes(app);
+routes(server);
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
+server.use((req, res, next) => {
 	var err = new Error('Not Found');
 	err.status = 404;
 	next(err);
 });
 // error handler
-app.use((err, req, res, next) => {
+server.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	res.locals.message = err.message;
 	res.locals.error = req.app.get('env') === 'DEVELOPMENT' ? err : {};
@@ -93,4 +121,4 @@ app.use((err, req, res, next) => {
 	res.render('error.ejs', { err });
 });
 
-module.exports = app;
+module.exports = server;

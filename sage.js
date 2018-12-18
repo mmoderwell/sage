@@ -1,5 +1,5 @@
-const app = require('./app');
+const server = require('./app');
 
-app.listen(8080, () => {
-	console.log('Sage running on port 8080.');
+server.listen(3000, () => {
+	console.log('Sage running on port 3000.');
 });

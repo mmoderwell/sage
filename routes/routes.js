@@ -4,29 +4,30 @@ const users = require('../controllers/users');
 const info = require('../controllers/info');
 const passport = require('passport');
 
-module.exports = (app) => {
+module.exports = (server) => {
 	//user creation / login routes
-	app.get('/signup', (req, res) => {
+	server.get('/signup', (req, res) => {
 		res.render('../views/signup.ejs');
 	});
-	app.get('/login', (req, res) => {
-		res.render('../views/login.ejs');
-	});
-	app.get('/logout', (req, res) => {
+	// server.get('/login', (req, res) => {
+	// 	//res.render('../views/login.ejs');
+	// 	app.render('/login');
+	// });
+	server.get('/logout', (req, res) => {
 		req.logout();
 		req.session.destroy(() => {
 			res.clearCookie('connect.sid');
 			res.redirect('/login');
 		})
 	});
-	app.post('/login', passport.authenticate('local', { failureRedirect: '/login', successRedirect: '/' }),
+	server.post('/login', passport.authenticate('local', { failureRedirect: '/login', successRedirect: '/' }),
 		(req, res) => {
 			res.redirect('/');
 		});
-	app.post('/signup', users.signup);
+	server.post('/signup', users.signup);
 
 	//logged in user routes
-	app.get('/', (req, res) => {
+	server.get('/', (req, res) => {
 		//console.log(req.user);
 		//console.log(req.isAuthenticated());
 		if (req.isAuthenticated()) {
@@ -35,11 +36,11 @@ module.exports = (app) => {
 			res.redirect('/login');
 		}
 	});
-	app.get('/profile', users.profile);
-	app.post('/api/info/zip', info.zip); //for setting zip from profile page
-	app.post('/api/info/user', info.user);
-	app.get('/api/weather/full', weather.full);
-	app.get('/api/weather/current', weather.current);
-	app.get('/api/weather/day', weather.day);
-	app.get('/api/unsplash/random', unsplash.random);
+	server.get('/profile', users.profile);
+	server.post('/api/info/zip', info.zip); //for setting zip from profile page
+	server.post('/api/info/user', info.user);
+	server.get('/api/weather/full', weather.full);
+	server.get('/api/weather/current', weather.current);
+	server.get('/api/weather/day', weather.day);
+	server.get('/api/unsplash/random', unsplash.random);
 }
