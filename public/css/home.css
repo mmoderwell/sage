@@ -4,9 +4,11 @@
 	padding-left: 0;
 	transition: all 0.5s ease;
 }
+
 #wrapper.toggled {
 	padding-left: 250px;
 }
+
 #sidebar-wrapper {
 	z-index: 1000;
 	position: fixed;
@@ -18,33 +20,42 @@
 	background: #f1f1f1;
 	transition: all 0.5s ease;
 }
+
 #wrapper.toggled #sidebar-wrapper {
 	width: 250px;
 }
+
 #page-wrapper {
 	width: 100%;
 	position: absolute;
 }
+
 #wrapper.toggled #page-wrapper {
 	position: absolute;
 	margin-right: -250px;
 }
+
 @media(min-width:768px) {
 	#wrapper {
 		padding-left: 0px;
 	}
+
 	#wrapper.toggled {
 		padding-left: 250;
 	}
+
 	#sidebar-wrapper {
 		width: 0px;
 	}
+
 	#wrapper.toggled #sidebar-wrapper {
 		width: 250px;
 	}
+
 	#page-wrapper {
 		position: relative;
 	}
+
 	#wrapper.toggled #page-wrapper {
 		position: relative;
 		margin-right: -250px;
@@ -56,6 +67,7 @@
 #sidebar-opener {
 	padding-top: 3%;
 }
+
 #sidebar-opener a {
 	cursor: pointer;
 }
@@ -70,36 +82,75 @@
 	padding: 0;
 	list-style: none;
 }
+
 .sidebar-nav li {
 	text-indent: 20px;
 	line-height: 40px;
 }
+
 .sidebar-nav ul {
 	list-style-type: none;
 }
+
 .sidebar-nav ul li:before {
 	content: '\2014';
 	position: absolute;
 	margin-left: -40px;
 }
+
 .sidebar-nav li a {
 	cursor: pointer;
-}
-
-/*------------------Weather Styles------------------*/
-
-#weather_icon {
-	max-width: 160px;
-	filter: brightness(95%);
-}
-#weather {
-	text-align: left;
 }
 
 /*------------------Time Styles------------------*/
 
 .time {
 	font-size: 2em;
-	padding: 1.5em 0;
-	margin: 24px 0;
+	padding: 0;
+	margin: 0;
+}
+
+.date {
+	margin: 0;
+	padding: 0;
+}
+
+/*------------------Grid Styles------------------*/
+#intro_grid {
+	display: grid;
+	grid-template-columns: 1fr 2fr 1fr;
+	grid-template-rows: 1fr 1.5fr;
+	grid-template-areas: ". greeting ."". weather .";
+}
+
+#time_box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#greeting_box {
+	grid-area: greeting;
+	text-align: center;
+	margin-bottom: 0;
+}
+
+
+/*------------------Weather Styles------------------*/
+#weather_box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	grid-area: weather;
+}
+
+#weather_icon {
+	max-width: 50px;
+	padding-right: 10px;
+	/*filter: brightness(95%);*/
+}
+
+#weather {
+	text-align: left;
 }

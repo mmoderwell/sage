@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'DEVELOPMENT') {
 } else {
 	mongo_uri = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/sage`;
 }
-mongoose.connect(mongo_uri).then(() => console.log('Connected to mongodb.')).catch((e) => {
+mongoose.connect(mongo_uri, { useNewUrlParser: true }).then(() => console.log('Connected to mongodb.')).catch((e) => {
 	console.error('Connection to mongodb failed.');
 });
 
@@ -61,7 +61,7 @@ passport.use(new LocalStrategy(
 	(username, password, done) => {
 		const User = require('./models/user');
 		const bcrypt = require('bcrypt');
-		User.findOne({ username: username }, function(err, user) {
+		User.findOne({ username: username }, function (err, user) {
 			if (err) return done(err);
 			if (!user) return done(null, false);
 			let hashed = user.password;

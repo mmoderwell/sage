@@ -10,7 +10,7 @@ let password = document.forms["login_form"]["password"];
 let error = document.getElementById('error');
 login_button.addEventListener('click', validate);
 
-document.addEventListener("keydown", function(e) {
+document.addEventListener("keydown", function (e) {
     if (e.which == 13 || e.keyCode == 13) {
         if (registering) {
             s_validate();
@@ -77,7 +77,7 @@ function res_listen() {
     if (this.responseURL.endsWith('/')) {
         success();
         window.location.replace(this.responseURL);
-    } else  {
+    } else {
         failed();
     }
 }
@@ -96,7 +96,7 @@ function new_account() {
                         <label class="control-label" for="input">email</label><i class="bar"></i>
                     </div>`);
     let button_snippet = document.createRange().createContextualFragment(`<button type="button" class='button' id="signup"></button>`);
-    let heading_snippet = 'Create an account with Sage<br><a href="javascript:window.location.href=window.location.href" title="login">Already have an accout?</a>';
+    let heading_snippet = 'Create an account with Sage<br><a href="javascript:window.location.href=window.location.href" title="login">Already have an account?</a>';
 
     heading.innerHTML = heading_snippet;
     login_button.remove();

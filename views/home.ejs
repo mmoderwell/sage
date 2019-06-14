@@ -41,57 +41,33 @@
                     <!--Main Content-->
                     <div class="row">
                         <div class="column">
-                            <p>Showing you the important things so that you can make the most of your day.</p>
+                            <!-- <p>Showing you the important things so that you can make the most of your day.</p> -->
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="column">
-                            <div class="box">
-                                <p class="content"><span id="greeting"></span>,
-                                    <%= user.fname %>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                            <div class="box">
-                                <p class="content time loading">Loading time<span>.</span><span>.</span><span>.</span></p>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="box">
-                                <p class="content date"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                            <div class="box">
-                                <div class="content">
-                                    <% if(user.city){ %>
+                    <br>
+                    <div id="intro_grid">
+                        <p id="greeting_box"><span id="greeting"></span>,
+                            <%= user.fname %>
+                        </p>
+                        <div id="weather_box">
+       <!--                      <% if(user.city){ %>
                                         <p>Currently in
                                             <%= user.city %>,
                                         </p>
-                                        </>
                                         <% } else{ %>
                                             <p>Currently in unknown location</p>
-                                            <% } %>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="column">
-                                                        <div>
-                                                            <img src="" alt="" id="weather_icon">
-                                                        </div>
-                                                    </div>
-                                                    <div class="column loading">
-                                                        <p id="weather">Loading today's weather<span>.</span><span>.</span><span>.</span></p>
-                                                    </div>
-                                                </div>
-
-                                </div>
-                            </div>
+                                            <% } %> -->
+                                <img src="" alt="" id="weather_icon">
+                                <p class="loading" id="weather">Loading today's weather<span>.</span><span>.</span><span>.</span></p>
                         </div>
+                    </div>
+
+                    <br>
+                    <br>
+
+                    <div id="time_box">
+                        <p class="date"></p>
+                        <p class="time loading">00:00:00<span>.</span><span>.</span><span>.</span></p>
                     </div>
                     <!-- <div class="row">
     <div class="column column-66">
