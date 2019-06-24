@@ -36,7 +36,8 @@ app.use((req, res, next) => {
 app.use(session({
 	secret: 'blueberry pancakes',
 	cookie: {
-		maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+		maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+		secure: false
 	},
 	store: new MongoDBStore({
 		uri: mongo_uri,
@@ -44,7 +45,6 @@ app.use(session({
 	}),
 	resave: false,
 	saveUninitialized: false,
-	cookie: { secure: false }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
