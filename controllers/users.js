@@ -14,7 +14,7 @@ module.exports = {
                     res.setHeader('Content-Type', 'application/json');
                     res.send({ in_use: true });
                 } else {
-                    bcrypt.hash(password, saltRounds, function(err, hash) {
+                    bcrypt.hash(password, saltRounds, function (err, hash) {
                         // Store hash in your password DB.
                         const user = new User({ name: name, fname: name.split(" ")[0], email: email, username: username, password: hash });
                         user.save()
@@ -24,7 +24,7 @@ module.exports = {
                                         const id = user._id.toString();
                                         console.log('Created new user: ' + id);
                                         req.login(id, (err) => {
-                                            if (err) { console.log(err) }
+                                            if (err) { console.log(err); }
                                             res.setHeader('Content-Type', 'text/html');
                                             res.redirect('/');
                                         });
@@ -42,15 +42,15 @@ module.exports = {
             res.redirect('/login');
         }
     }
-}
+};
 
-passport.serializeUser(function(id, done) {
+passport.serializeUser(function (id, done) {
     //console.log(id + ' serialized');
     done(null, id);
 });
 
-passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, id) {
+passport.deserializeUser(function (id, done) {
+    User.findById(id, function (err, id) {
         if (err) return done(null, err);
         //console.log(id + ' deserialized');
         done(null, id);

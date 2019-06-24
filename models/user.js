@@ -10,7 +10,10 @@ const userSchema = new Schema({
 	zip: Number,
 	lat: Number,
 	long: Number,
-	city: String
+	city: String,
+
+	google_access_token: String,
+	google_refresh_token: String
 });
 
 const user = mongoose.model('user', userSchema);

@@ -2,6 +2,7 @@ const weather = require('../controllers/weather');
 const unsplash = require('../controllers/unsplash');
 const users = require('../controllers/users');
 const info = require('../controllers/info');
+const google = require('../controllers/cal');
 const passport = require('passport');
 
 module.exports = (app) => {
@@ -36,6 +37,8 @@ module.exports = (app) => {
 		}
 	});
 	app.get('/profile', users.profile);
+	app.get('/auth/google', google.authorize);
+	app.get('/auth/google/callback', google.get_events);
 	app.post('/api/info/zip', info.zip); //for setting zip from profile page
 	app.post('/api/info/user', info.user);
 	app.get('/api/weather/full', weather.full);

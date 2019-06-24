@@ -1,74 +1,57 @@
 const fs = require('fs');
-const EventEmitter = require('events');
-const readline = require('readline');
-const { google } = require('googleapis');
+const path = require('path');
+const http = require('http');
+const url = require('url');
+const opn = require('open');
+const destroyer = require('server-destroy');
 
-// If modifying these scopes, delete token.json.
-const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
-const TOKEN_PATH = 'token.json';
+const {google} = require('googleapis');
 
-// Load client secrets from a local file.
-fs.readFile('../credentials/credentials.json', (err, content) => {
-	if (err) return console.log('Error loading client secret file:', err);
-	// Authorize a client with credentials, then call the Google Calendar API.
-	authorize(JSON.parse(content), listAllEvents);
-	//authorize(JSON.parse(content), listEvents);
-});
+const scopes = ['https://www.googleapis.com/auth/calendar.readonly'];
 
-/**
- * Create an OAuth2 client with the given credentials, and then execute the
- * given callback function.
- * @param {Object} credentials The authorization client credentials.
- * @param {function} callback The callback to call with the authorized client.
- */
-function authorize(credentials, callback) {
-	const { client_secret, client_id, redirect_uris } = credentials.installed;
-	const oAuth2Client = new google.auth.OAuth2(
-		client_id, client_secret, redirect_uris[0]);
+const oauth2Client = new google.auth.OAuth2(
+  '731498450846-0ka5ht776jego4grs0lh1cpgvcngai2t.apps.googleusercontent.com',
+  'yc-GxFv9NB0n8Yhvjt6Gzz_m',
+  'http://localhost:8080/auth/google/callback'
+);
 
-	// Check if we have previously stored a token.
-	fs.readFile(TOKEN_PATH, (err, token) => {
-		if (err) return getAccessToken(oAuth2Client, callback);
-		oAuth2Client.setCredentials(JSON.parse(token));
-		callback(oAuth2Client);
-	});
+async function authenticate(scopes) {
+
+	return new Promise((resolve, reject) => {
+	    // grab the url that will be used for authorization
+	    const authorizeUrl = oauth2Client.generateAuthUrl({
+	      access_type: 'offline',
+	      scope: scopes.join(' '),
+	    });
+	    const server = http
+	      .createServer(async (req, res) => {
+	        try {
+	          if (req.url.indexOf('/oauth2callback') > -1) {
+	            const qs = new url.URL(req.url, 'http://localhost:3000')
+	              .searchParams;
+	            res.end('Authentication successful! Please return to the console.');
+	            server.destroy();
+	            const {tokens} = await oauth2Client.getToken(qs.get('code'));
+	            oauth2Client.credentials = tokens;
+	            resolve(oauth2Client);
+	          }
+	        } catch (e) {
+	          reject(e);
+	        }
+	      })
+	      .listen(3000, () => {
+	        // open the browser to the authorize url to start the workflow
+	        opn(authorizeUrl, {wait: false}).then(cp => cp.unref());
+	      });
+	    destroyer(server);
+	  });
 }
 
-/**
- * Get and store new token after prompting for user authorization, and then
- * execute the given callback with the authorized OAuth2 client.
- * @param {google.auth.OAuth2} oAuth2Client The OAuth2 client to get token for.
- * @param {getEventsCallback} callback The callback for the authorized client.
- */
-function getAccessToken(oAuth2Client, callback) {
-	const authUrl = oAuth2Client.generateAuthUrl({
-		access_type: 'offline',
-		scope: SCOPES,
-	});
-	console.log('Authorize this app by visiting this url:', authUrl);
-	const rl = readline.createInterface({
-		input: process.stdin,
-		output: process.stdout,
-	});
-	rl.question('Enter the code from that page here: ', (code) => {
-		rl.close();
-		oAuth2Client.getToken(code, (err, token) => {
-			if (err) return console.error('Error retrieving access token', err);
-			oAuth2Client.setCredentials(token);
-			// Store the token to disk for later program executions
-			fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
-				if (err) console.error(err);
-				console.log('Token stored to', TOKEN_PATH);
-			});
-			callback(oAuth2Client);
-		});
-	});
-}
 
-/**
- * Lists the next events on the user's primary calendar.
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
- */
+authenticate(scopes)
+  .then(ret => {
+  	console.log(ret);
+  });
 
 function listAllEvents(auth) {
 	class Calendar {
@@ -147,7 +130,7 @@ function listAllEvents(auth) {
 		start().then(() => {
 			//sort the events by start time
 			event_list.sort((a, b) => {
-				return a.time - b.time
+				return a.time - b.time;
 			});
 			console.log(event_list);
 		}).catch((e) => console.log('Error getting events', e));

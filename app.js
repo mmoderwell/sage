@@ -28,9 +28,8 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use((req, res, next) => {
-	// Website you wish to allow to connect
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	// Pass to next layer of middleware
+	// pass to next layer of middleware
 	next();
 });
 
@@ -80,7 +79,7 @@ routes(app);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
 	var err = new Error('Not Found');
-	err.status = 404;
+	err.statusCode = 404;
 	next(err);
 });
 // error handler
@@ -89,7 +88,7 @@ app.use((err, req, res, next) => {
 	res.locals.message = err.message;
 	res.locals.error = req.app.get('env') === 'DEVELOPMENT' ? err : {};
 	// render the error page
-	res.status(err.status || 500);
+	res.status(err.statusCode || 500);
 	res.render('error.ejs', { err });
 });
 
