@@ -31,6 +31,7 @@ function date() {
             break;
         case 31:
             date = "31st";
+            break;
         default:
             date = date + "th";
     }
@@ -58,7 +59,8 @@ function clock() {
         maridiem = 'AM';
     } else {
         maridiem = 'PM';
-        hours -= 12;
+        // convert to 12 hour time
+        if (hours !== 12) hours -= 12;
     }
     //add a 0 to numbers that are only one digit
     function clean(time) {
@@ -93,9 +95,9 @@ function get_weather() {
 }
 
 function greeting() {
-    const morning_greetings = ['Good morning', 'Morning', 'Rise n\' shine', 'Greetings', 'Hi there', 'Welcome back'];
-    const afternoon_greetings = ['Good afternoon', 'Afternoon', 'Greetings', 'Welcome', 'Hi', 'Hello', 'Welcome back'];
-    const night_greetings = ['Good evening', 'Evening', 'Welcome', 'Hi', 'Hello', 'Good night', 'Sweet dreams', 'Welcome back'];
+    const morning_greetings = ['Good morning,', 'Morning,', 'Rise n\' shine,', 'Greetings,', 'Hi there', 'Welcome back', 'How\'s it going,'];
+    const afternoon_greetings = ['Good afternoon,', 'Afternoon,', 'Greetings,', 'Welcome,', 'Hi', 'Hello', 'Welcome back,', 'Good day,'];
+    const night_greetings = ['Good evening,', 'Evening,', 'Welcome,', 'Hi', 'Hello', 'Good night,', 'Sweet dreams,', 'Welcome back,'];
 
     if (isMorning(time)) {
         document.getElementById('greeting').innerHTML = morning_greetings[Math.floor(Math.random() * morning_greetings.length)];
